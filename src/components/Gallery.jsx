@@ -81,14 +81,14 @@ export default function Gallery() {
           ))}
         </div>
 
-        {/* View More CTA */}
-        <div className="fade-in" style={{ textAlign: 'center', marginTop: '2.5rem' }}>
+        {/* View More CTA — perfectly centered */}
+        <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '2.5rem' }}>
           <a
             href="https://www.instagram.com/diwoin_wedding_organizer"
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-secondary theme-transition"
-            style={{ padding: '0.875rem 2.5rem' }}
+            style={{ padding: '0.875rem 2rem', display: 'inline-flex', alignItems: 'center', gap: '0.5rem', whiteSpace: 'nowrap' }}
             id="gallery-instagram-btn"
             aria-label="Lihat lebih banyak karya kami di Instagram"
           >

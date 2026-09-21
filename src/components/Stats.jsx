@@ -38,6 +38,29 @@ function StarRating() {
   );
 }
 
+/* ─── shared carousel styles ─── */
+const carouselWrap = {
+  display: 'flex',
+  flexDirection: 'row',
+  flexWrap: 'nowrap',
+  overflowX: 'auto',
+  scrollSnapType: 'x mandatory',
+  scrollBehavior: 'smooth',
+  WebkitOverflowScrolling: 'touch',
+  gap: '1.25rem',
+  paddingBottom: '1rem',
+  /* hide scrollbar cross-browser */
+  msOverflowStyle: 'none',
+  scrollbarWidth: 'none',
+};
+
+const carouselCard = {
+  scrollSnapAlign: 'center',
+  flexShrink: 0,
+  /* 85 vw on mobile so next card peeks; full width on desktop via CSS grid below */
+  minWidth: 'min(85vw, 340px)',
+};
+
 export default function Stats() {
   return (
     <>
@@ -89,19 +112,20 @@ export default function Stats() {
             <div className="divider" />
           </div>
 
+          {/* ── HORIZONTAL SWIPE CAROUSEL (mobile) / grid (desktop) ── */}
           <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: '1.5rem',
-            }}
+            className="testimonials-carousel"
+            style={carouselWrap}
+            /* hide webkit scrollbar */
           >
+            <style>{`.testimonials-carousel::-webkit-scrollbar { display: none; }`}</style>
+
             {TESTIMONIALS.map((t, i) => (
               <article
                 key={t.id}
                 className={`package-card theme-transition fade-in fade-in-delay-${i + 1}`}
                 id={`testimonial-${t.id}`}
-                style={{ gap: '1rem' }}
+                style={{ ...carouselCard, gap: '1rem', display: 'flex', flexDirection: 'column' }}
                 aria-label={`Testimoni dari ${t.name}`}
               >
                 {/* Quote mark */}
@@ -124,10 +148,12 @@ export default function Stats() {
                   {t.text}
                 </p>
 
-                {/* Author (No Image) */}
+                {/* Author */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', paddingTop: '1rem', borderTop: '1px solid var(--border-color)' }}>
-                  {/* Google G Icon placeholder */}
-                  <div style={{ width: 36, height: 36, borderRadius: '50%', background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ea4335', fontWeight: 'bold', fontSize: '1.2rem' }} aria-hidden="true">
+                  <div
+                    style={{ width: 36, height: 36, borderRadius: '50%', background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ea4335', fontWeight: 'bold', fontSize: '1.2rem', flexShrink: 0 }}
+                    aria-hidden="true"
+                  >
                     G
                   </div>
                   <div>
@@ -139,13 +165,14 @@ export default function Stats() {
             ))}
           </div>
 
-          <div className="fade-in" style={{ textAlign: 'center', marginTop: '2.5rem' }}>
+          {/* Google Maps CTA — perfectly centered */}
+          <div className="fade-in" style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
             <a
               href="https://maps.app.goo.gl/7n7Lp9dpfGy7fdcU6"
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-secondary theme-transition"
-              style={{ padding: '0.875rem 2.5rem', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
+              style={{ padding: '0.875rem 1.75rem', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', whiteSpace: 'nowrap' }}
             >
               Baca Semua Ulasan di Google Maps
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>

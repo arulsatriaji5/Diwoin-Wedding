@@ -39,11 +39,24 @@ export default function Hero() {
 
       {/* Content */}
       <div className="hero-content">
-        {/* Badge */}
-        <div className="hero-badge" role="text">
-          <Sparkles size={12} />
+
+        {/* Badge — FIX: inline-flex row on wide, flex-col on narrow */}
+        <div
+          className="hero-badge"
+          role="text"
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '0.375rem',
+            textAlign: 'center',
+          }}
+        >
+          <Sparkles size={12} style={{ flexShrink: 0 }} />
           <span>Wedding Organizer &amp; Photography</span>
-          <Camera size={12} />
+          <Camera size={12} style={{ flexShrink: 0 }} />
         </div>
 
         {/* Heading */}
@@ -86,14 +99,15 @@ export default function Hero() {
           </button>
         </div>
 
-        {/* Trust Indicators */}
+        {/* Trust Indicators — FIX: use flex with clean stacking, no overlap with scroll */}
         <div
           style={{
             display: 'flex',
             flexWrap: 'wrap',
-            gap: '1.5rem',
+            gap: '1.5rem 2rem',
             justifyContent: 'center',
             marginTop: '3rem',
+            paddingBottom: '2rem', // give space above scroll indicator
           }}
         >
           {[
@@ -101,11 +115,20 @@ export default function Hero() {
             { num: '8 Tahun', label: 'Pengalaman' },
             { num: '4.9★', label: 'Rating Google' },
           ].map((stat) => (
-            <div key={stat.num} style={{ textAlign: 'center' }}>
-              <div style={{ color: '#e8c87a', fontFamily: "'Playfair Display', serif", fontSize: '1.25rem', fontWeight: 700 }}>
+            <div
+              key={stat.num}
+              style={{
+                textAlign: 'center',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '0.2rem',
+              }}
+            >
+              <div style={{ color: '#e8c87a', fontFamily: "'Playfair Display', serif", fontSize: '1.25rem', fontWeight: 700, lineHeight: 1.2 }}>
                 {stat.num}
               </div>
-              <div style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.78rem', marginTop: '0.2rem' }}>
+              <div style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.78rem' }}>
                 {stat.label}
               </div>
             </div>
@@ -113,7 +136,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll Indicator — absolutely positioned, clearly below content */}
       <div className="hero-scroll-indicator" aria-hidden="true">
         <span style={{ fontSize: '0.65rem', letterSpacing: '0.12em' }}>SCROLL</span>
         <ChevronDown size={16} />
